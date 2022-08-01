@@ -1,19 +1,20 @@
 import { Body, Controller, Get, Post, Query, Res } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { Response } from 'express';
+import { SenderService } from 'src/wa/services/sender.service';
+import { TemplateSenderService } from 'src/wa/services/template-sender.service';
 import { WebhookService } from 'src/wa/services/webhook.service';
 const axios = require('axios').default;
 @Controller('')
 export class WebhookController {
-  private secret: string;
   flag = true;
 
   constructor(
     private config: ConfigService,
     private webhookService: WebhookService,
-  ) {
-    this.secret = config.get('SECRET');
-  }
+    private sender: SenderService,
+    private template: TemplateSenderService,
+  ) {}
 
   @Get('')
   sayWelcome() {
@@ -28,7 +29,7 @@ export class WebhookController {
     @Res() res: Response,
   ) {
     if (mode && token) {
-      if (mode === 'subscribe' && token === this.secret) {
+      if (mode === 'subscribe' && token === this.config.get('SECRET')) {
         console.log('webhook verified');
         return res.status(200).send(challenge);
       }
@@ -38,6 +39,8 @@ export class WebhookController {
 
   @Post('webhook')
   listenToMessage(@Body() body) {
-    console.log(JSON.stringify(body, null, 2));
+    this.webhookService.handleNewMessage(body);
+    this.flag && this.sender.sendTemplateMessage('201116273717', 'otp');
+    this.flag = false;
   }
 }
