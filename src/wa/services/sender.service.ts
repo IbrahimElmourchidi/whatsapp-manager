@@ -9,7 +9,7 @@ export class SenderService {
     private readonly mg: MessageGeneratorService,
   ) {}
 
-  sendMessage(mobileNumber: string, content: string) {
+  sendTextMessage(mobileNumber: string, content: string) {
     let data = this.mg.generateTextMessage(mobileNumber, content);
     this.http.post('messages', data).subscribe(
       (res) => {

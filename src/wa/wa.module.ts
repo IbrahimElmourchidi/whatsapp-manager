@@ -1,7 +1,7 @@
 import { HttpModule } from '@nestjs/axios';
 import { Module } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { WebhookController } from './controllers/webhook/webhook.controller';
+import { WebhookController } from './controllers/webhook.controller';
 import { MessageGeneratorService } from './services/message-generator.service';
 import { SenderService } from './services/sender.service';
 import { TemplateSenderService } from './services/template-sender.service';
