@@ -1,9 +1,8 @@
 import { Body, Controller, Get, Post, Query, Res } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { Response } from 'express';
-import { SenderService } from 'src/wa/services/sender.service';
-import { TemplateSenderService } from 'src/wa/services/template-sender.service';
 import { WebhookService } from 'src/wa/services/webhook.service';
+
 const axios = require('axios').default;
 @Controller('')
 export class WebhookController {
@@ -12,8 +11,6 @@ export class WebhookController {
   constructor(
     private config: ConfigService,
     private webhookService: WebhookService,
-    private sender: SenderService,
-    private template: TemplateSenderService,
   ) {}
 
   @Get('')
@@ -40,7 +37,5 @@ export class WebhookController {
   @Post('webhook')
   listenToMessage(@Body() body) {
     this.webhookService.handleNewMessage(body);
-    this.flag && this.sender.sendTemplateMessage('201116273717', 'otp');
-    this.flag = false;
   }
 }

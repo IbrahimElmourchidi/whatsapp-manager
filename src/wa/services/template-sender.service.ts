@@ -6,7 +6,10 @@ export class TemplateSenderService {
   constructor(private readonly http: HttpService) {}
 
   sendOTP(mobileNumber: string, otp: string) {
+    console.log('sending otp');
     let data = {
+      messaging_product: 'whatsapp',
+      recipient_type: 'individual',
       to: mobileNumber,
       type: 'template',
       template: {
@@ -27,11 +30,13 @@ export class TemplateSenderService {
         ],
       },
     };
+    console.log(data);
     this.http.post('messages', data).subscribe(
       (res) => {
         console.log(`otp template sent: `, res.data);
       },
       (err) => {
+        // console.log(JSON.stringify(err, null, 2));
         console.log(JSON.stringify(err, null, 2));
       },
     );

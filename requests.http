@@ -5,3 +5,30 @@ Content-Type: application/json
 
 
 ## from : 201116273717
+
+###
+POST https://graph.facebook.com/v13.0/100230876128607/messages
+Content-Type: 'application/json'
+Authorization: 'bearer EABN2iUGxGNIBAOGZC6WnjRlPKVfa2eIA1DiEqmu71BR2aUb1dWdZA6GuYPCVScmcmM8ZCWp3GdmQa8oKCoVGAhap5zUGWJUORlLIjcYOHbOK5cMOHeqZCFQFZCYCVFF0sZAF0OT0gQGMAlyZANi5hKDZC5YZCo4ZCl8i5AZALuJxvZCAiKUZCKi3Ph0OTvkYON1yzAs2BH8EB4eZBn4REd1OZAd1GAe'
+
+{
+      to: mobileNumber,
+      type: 'template',
+      template: {
+        name: 'otp',
+        language: {
+          code: 'en_US',
+        },
+        components: [
+          {
+            type: 'body',
+            parameters: [
+              {
+                type: 'text',
+                text: otp,
+              },
+            ],
+          },
+        ],
+      },
+    };
