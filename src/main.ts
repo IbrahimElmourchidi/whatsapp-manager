@@ -2,7 +2,7 @@ import { NestFactory } from '@nestjs/core';
 import { ValidationPipe } from '@nestjs/common';
 import { AppModule } from './app.module';
 import { join } from 'path';
-
+import * as exphbs from 'express-handlebars';
 import {
   ExpressAdapter,
   NestExpressApplication,
@@ -13,6 +13,8 @@ async function bootstrap() {
     AppModule,
     new ExpressAdapter(),
   );
+  app.useStaticAssets(join(process.cwd(), 'src/admin/public'));
+  app.setBaseViewsDir(join(process.cwd(), 'src/admin/views'));
   app.useGlobalPipes(
     new ValidationPipe({
       whitelist: true,
@@ -21,10 +23,15 @@ async function bootstrap() {
   const helpers = {
     ind: (val: any) => val + 1,
   };
-  app.useStaticAssets(join(process.cwd(), 'src/admin/public'));
-  app.setBaseViewsDir(join(process.cwd(), 'src/admin/views'));
-  app.set('view options', { layout: 'base' });
-  app.set('helpers', helpers);
+
+  const hbs = exphbs.create({
+    defaultLayout: 'base',
+    layoutsDir: join(process.cwd(), 'src/admin', 'views'),
+    helpers,
+    extname: 'hbs',
+  });
+
+  app.engine('hbs', hbs.engine);
   app.setViewEngine('hbs');
 
   const port = process.env.PORT || 5555;

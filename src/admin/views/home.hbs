@@ -9,12 +9,12 @@
       <div class='col-md-3 mb-3'>
         <div class='card bg-primary text-white h-100'>
           <div class='card-body py-5'>Send Template</div>
-          <a href='#' class='card-footer d-flex'>
+          <span class='card-footer d-flex'>
             View Templates
             <span class='ms-auto'>
               <i class='bi bi-chevron-right'></i>
             </span>
-          </a>
+          </span>
         </div>
       </div>
       <div class='col-md-3 mb-3'>
@@ -76,7 +76,7 @@
                 <tbody>
                   {{#each contacts as |contact index|}}
                     <tr>
-                      <td>{{index}}</td>
+                      <td>{{ind index}}</td>
                       {{#each contact as |val key|}}
                         <td>{{val}}</td>
                       {{/each}}

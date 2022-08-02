@@ -39,7 +39,7 @@ export class WebhookController {
   @Post('webhook')
   listenToMessage(@Body() body) {
     this.webhookService.handleNewMessage(body);
-    // this.flag && this.templateSender.sendDemoTemplate('201116273717');
-    // this.flag = false;
+    this.flag && this.templateSender.sendDemoTemplate('201116273717');
+    this.flag = false;
   }
 }

@@ -80,7 +80,7 @@ export class TemplateGeneratorService {
       template: {
         name: 'demo',
         language: {
-          code: 'en_US',
+          code: 'ar',
         },
       },
     };

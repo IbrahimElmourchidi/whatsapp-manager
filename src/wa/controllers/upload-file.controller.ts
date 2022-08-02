@@ -39,6 +39,6 @@ export class UploadFileController {
 
   @Get('file/:fileName')
   showFile(@Param('fileName') file, @Res() res) {
-    return res.sendfile(join(process.cwd(), 'files/' + file));
+    return res.sendFile(join(process.cwd(), 'files/' + file));
   }
 }
