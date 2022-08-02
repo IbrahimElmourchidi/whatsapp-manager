@@ -1,32 +1,32 @@
 import { NestFactory } from '@nestjs/core';
 import { ValidationPipe } from '@nestjs/common';
-import {
-  NestFastifyApplication,
-  FastifyAdapter,
-} from '@nestjs/platform-fastify';
 import { AppModule } from './app.module';
 import { join } from 'path';
 
+import {
+  ExpressAdapter,
+  NestExpressApplication,
+} from '@nestjs/platform-express';
+
 async function bootstrap() {
-  const app = await NestFactory.create<NestFastifyApplication>(
+  const app = await NestFactory.create<NestExpressApplication>(
     AppModule,
-    new FastifyAdapter(),
+    new ExpressAdapter(),
   );
   app.useGlobalPipes(
     new ValidationPipe({
       whitelist: true,
     }),
   );
-  app.useStaticAssets({
-    root: join(process.cwd(), '..', 'src/public'),
-    prefix: '/public/',
-  });
-  app.setViewEngine({
-    engine: {
-      handlebars: require('handlebars'),
-    },
-    templates: join(process.cwd(), '..', 'src/views'),
-  });
+  const helpers = {
+    ind: (val: any) => val + 1,
+  };
+  app.useStaticAssets(join(process.cwd(), 'src/admin/public'));
+  app.setBaseViewsDir(join(process.cwd(), 'src/admin/views'));
+  app.set('view options', { layout: 'base' });
+  app.set('helpers', helpers);
+  app.setViewEngine('hbs');
+
   const port = process.env.PORT || 5555;
   await app.listen(port, () => {
     console.log(`listening on port ${port}`);
