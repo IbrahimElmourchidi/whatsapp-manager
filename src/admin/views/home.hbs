@@ -1,0 +1,101 @@
+<main class='mt-5 pt-3'>
+  <div class='container-fluid'>
+    <div class='row'>
+      <div class='col-md-12'>
+        <h4>Dashboard</h4>
+      </div>
+    </div>
+    <div class='row'>
+      <div class='col-md-3 mb-3'>
+        <div class='card bg-primary text-white h-100'>
+          <div class='card-body py-5'>Send Template</div>
+          <a href='#' class='card-footer d-flex'>
+            View Templates
+            <span class='ms-auto'>
+              <i class='bi bi-chevron-right'></i>
+            </span>
+          </a>
+        </div>
+      </div>
+      <div class='col-md-3 mb-3'>
+        <div class='card bg-warning text-dark h-100'>
+          <div class='card-body py-5'>Send Bulk</div>
+          <div class='card-footer d-flex'>
+            View Details
+            <span class='ms-auto'>
+              <i class='bi bi-chevron-right'></i>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class='col-md-3 mb-3'>
+        <div class='card bg-success text-white h-100'>
+          <div class='card-body py-5'>Success Card</div>
+          <div class='card-footer d-flex'>
+            View Details
+            <span class='ms-auto'>
+              <i class='bi bi-chevron-right'></i>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class='col-md-3 mb-3'>
+        <div class='card bg-danger text-white h-100'>
+          <div class='card-body py-5'>Danger Card</div>
+          <div class='card-footer d-flex'>
+            View Details
+            <span class='ms-auto'>
+              <i class='bi bi-chevron-right'></i>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class='row'>
+      <div class='col-md-12 mb-3'>
+        <div class='card'>
+          <div class='card-header'>
+            <span><i class='bi bi-table me-2'></i></span>
+            Users List
+          </div>
+          <div class='card-body'>
+            <div class='table-responsive'>
+              <table
+                id='example'
+                class='table table-striped data-table'
+                style='width: 100%'
+              >
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Mobile Number</th>
+                    <th>Company</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {{#each contacts as |contact index|}}
+                    <tr>
+                      <td>{{index}}</td>
+                      {{#each contact as |val key|}}
+                        <td>{{val}}</td>
+                      {{/each}}
+                    </tr>
+                  {{/each}}
+                </tbody>
+                <tfoot>
+                  <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Mobile Number</th>
+                    <th>Company</th>
+                  </tr>
+                </tfoot>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
