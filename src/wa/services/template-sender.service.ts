@@ -11,15 +11,7 @@ export class TemplateSenderService {
 
   sendOTP(mobileNumber: string, otp: string) {
     let data = this.templateGenerator.generateOtpTemplate(mobileNumber, otp);
-    this.http.post('messages', data).subscribe(
-      (res) => {
-        console.log(`otp template sent: `, res.data);
-      },
-      (err) => {
-        // console.log(JSON.stringify(err, null, 2));
-        console.log(JSON.stringify(err, null, 2));
-      },
-    );
+    this.sendTemplate(data);
   }
 
   sendMarketingTemplate(
@@ -33,26 +25,28 @@ export class TemplateSenderService {
       imageUrl,
     );
 
-    this.http.post('messages', data).subscribe(
-      (res) => {
-        console.log(`marketing template sent: `, res.data);
-      },
-      (err) => {
-        // console.log(JSON.stringify(err, null, 2));
-        console.log(JSON.stringify(err, null, 2));
-      },
-    );
+    this.sendTemplate(data);
   }
 
   sendDemoTemplate(mobileNumber) {
     let data = this.templateGenerator.generateDemoTemplate(mobileNumber);
+    this.sendTemplate(data);
+  }
+
+  sendBotWelcomeTemplate(mobileNumber: string, language: string) {
+    let data = this.templateGenerator.generateBotWelcomTemplate(
+      mobileNumber,
+      language,
+    );
+    this.sendTemplate(data);
+  }
+
+  sendTemplate(data: any) {
     this.http.post('messages', data).subscribe(
-      (res) => {
-        console.log(`marketing template sent: `, res.data);
-      },
+      (res) => {},
       (err) => {
-        // console.log(JSON.stringify(err, null, 2));
         console.log(JSON.stringify(err, null, 2));
+        // console.log('err');
       },
     );
   }

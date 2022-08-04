@@ -1,8 +1,14 @@
-import { Body, Controller, Get, Post, Query, Res } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  ForbiddenException,
+  Get,
+  Post,
+  Query,
+} from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { Response } from 'express';
 import { WebhookService } from 'src/wa/services/webhook.service';
-import { TemplateSenderService } from '../services/template-sender.service';
+import { RobotService } from '../services/robot.service';
 
 const axios = require('axios').default;
 @Controller('')
@@ -12,7 +18,7 @@ export class WebhookController {
   constructor(
     private config: ConfigService,
     private webhookService: WebhookService,
-    private templateSender: TemplateSenderService,
+    private robot: RobotService,
   ) {}
 
   @Get('')
@@ -25,21 +31,23 @@ export class WebhookController {
     @Query('hub.mode') mode: string,
     @Query('hub.verify_token') token: string,
     @Query('hub.challenge') challenge: string,
-    @Res() res: Response,
   ) {
+    console.log('req');
     if (mode && token) {
       if (mode === 'subscribe' && token === this.config.get('SECRET')) {
         console.log('webhook verified');
-        return res.status(200).send(challenge);
+        return challenge;
       }
     }
-    return res.status(403);
+    console.log('not real');
+    return new ForbiddenException();
   }
 
   @Post('webhook')
   listenToMessage(@Body() body) {
-    this.webhookService.handleNewMessage(body);
-    // this.flag && this.templateSender.sendDemoTemplate('201116273717');
-    // this.flag = false;
+    const message = this.webhookService.handleNewMessage(body);
+    // console.log(message);
+
+    message.message && this.robot.initRobotWorkers(message);
   }
 }

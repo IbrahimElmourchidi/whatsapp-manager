@@ -5,10 +5,12 @@ import { SenderController } from './controllers/sender-controller';
 import { UploadFileController } from './controllers/upload-file.controller';
 import { WebhookController } from './controllers/webhook.controller';
 import { MessageGeneratorService } from './services/message-generator.service';
+import { RobotService } from './services/robot.service';
 import { SenderService } from './services/sender.service';
 import { TemplateGeneratorService } from './services/template-generator.service';
 import { TemplateSenderService } from './services/template-sender.service';
 import { WebhookService } from './services/webhook.service';
+import { DefaultWorkerService } from './services/default-worker.service';
 
 @Module({
   controllers: [WebhookController, SenderController, UploadFileController],
@@ -30,6 +32,8 @@ import { WebhookService } from './services/webhook.service';
     MessageGeneratorService,
     TemplateSenderService,
     TemplateGeneratorService,
+    RobotService,
+    DefaultWorkerService,
   ],
 })
 export class WaModule {}

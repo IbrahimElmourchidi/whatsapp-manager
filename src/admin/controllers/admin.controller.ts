@@ -29,4 +29,10 @@ export class AdminController {
   aboutPage() {
     return { title: 'about page' };
   }
+
+  @Get('profile')
+  @Render('profile')
+  profilePage() {
+    return { title: 'profile page' };
+  }
 }

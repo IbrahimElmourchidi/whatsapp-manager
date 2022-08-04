@@ -80,7 +80,22 @@ export class TemplateGeneratorService {
       template: {
         name: 'demo',
         language: {
-          code: 'en_US',
+          code: 'ar',
+        },
+      },
+    };
+  }
+
+  generateBotWelcomTemplate(mobileNumber: string, language: string) {
+    return {
+      messaging_product: 'whatsapp',
+      recipient_type: 'individual',
+      to: mobileNumber,
+      type: 'template',
+      template: {
+        name: 'botwelcome',
+        language: {
+          code: language,
         },
       },
     };
